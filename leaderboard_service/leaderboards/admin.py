@@ -1,3 +1,7 @@
 from django.contrib import admin
 
-# Register your models here.
+from .models import Leaderboard
+
+class LeaderboardAdmin(admin.ModelAdmin):
+    pass
+admin.site.register(Leaderboard, LeaderboardAdmin)

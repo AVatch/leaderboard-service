@@ -1,3 +1,7 @@
 from django.contrib import admin
 
-# Register your models here.
+from .models import Entry
+
+class EntryAdmin(admin.ModelAdmin):
+    pass
+admin.site.register(Entry, EntryAdmin)

@@ -16,7 +16,7 @@ class Entry(models.Model):
     time_modified = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return '%' % self.name
+        return '%s' % (self.name,)
     
     def increment_score(self, delta=1):
         self.score += delta
