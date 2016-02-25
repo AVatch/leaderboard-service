@@ -8,3 +8,4 @@ A simple django-rest API service for creating leaderboards
 3. Leaderboard specific tokens
 4. Rate limit requests
 5. Setup a simple web interface
+6. Simple API docs
