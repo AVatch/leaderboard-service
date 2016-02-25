@@ -31,6 +31,6 @@ class ListLeaderboardEntriesAPIView(generics.ListAPIView):
     serializer_class = EntrySerializer
     authentication_classes = (authentication.TokenAuthentication,)
     paginate_by = 100
-    def get_queryset(self):
+    def get_queryset(self, pk):
         leaderboard = get_object_or_404(Leaderboard, pk=self.kwargs['pk'])
         return Entry.objects.filter(leaderboard=leaderboard)
