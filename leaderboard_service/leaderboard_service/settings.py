@@ -40,7 +40,7 @@ CORE_APPS = [
 ]
 
 THIRD_PARTY_APPS = ['rest_framework', 'rest_framework.authtoken']
-APPS = ['leaderboards', 'entries']
+APPS = ['leaderboards']
 
 INSTALLED_APPS = CORE_APPS + THIRD_PARTY_APPS + APPS
 
