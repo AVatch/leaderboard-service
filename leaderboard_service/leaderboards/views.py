@@ -11,40 +11,45 @@ from .models import Leaderboard
 from .models import Entry
 
 
-class ListCreateLeaderboardAPIView(generics.ListCreateAPIView):
+class LeaderboardListCreateAPIView(generics.ListCreateAPIView):
     queryset = Leaderboard.objects.all()
     serializer_class = LeaderboardSerializer
     authentication_classes = (authentication.TokenAuthentication,)
     paginate_by = 100
     
     def perform_create(self, serializer):
+        """Automatically set the author to the person making the request"""
         serializer.save(author=self.request.user)
 
 
-class RetrieveUpdateDestoryLeaderboardAPIView(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Leaderboard.objects.all()
+class LeaderboardRetrieveUpdateDestoryAPIView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = LeaderboardSerializer
     authentication_classes = (authentication.TokenAuthentication,)
     paginate_by = 100
+    
+    def get_queryset(self, pk):
+        """Only return the leaderboard objects the requester has created"""
+        return Leaderboard.objects.filter(author=self.request.user)
 
 
-class ListLeaderboardEntriesAPIView(generics.ListAPIView):
+class LeaderboardListEntriesAPIView(generics.ListAPIView):
     serializer_class = EntrySerializer
     authentication_classes = (authentication.TokenAuthentication,)
     paginate_by = 100
+    
     def get_queryset(self, pk):
-        leaderboard = get_object_or_404(Leaderboard, pk=self.kwargs['pk'])
+        leaderboard = get_object_or_404(Leaderboard, pk=pk)
         return Entry.objects.filter(leaderboard=leaderboard)
 
 
-class ListCreateEntriesAPIView(generics.ListCreateAPIView):
+class EntriesListCreateAPIView(generics.ListCreateAPIView):
     queryset = Entry.objects.all()
     serializer_class = EntrySerializer
     authentication_classes = (authentication.TokenAuthentication,)
     paginate_by = 100
 
 
-class RetrieveUpdateDestoryEntriesAPIView(generics.RetrieveUpdateDestroyAPIView):
+class EntriesRetrieveUpdateDestoryAPIView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Entry.objects.all()
     serializer_class = EntrySerializer
     authentication_classes = (authentication.TokenAuthentication,)

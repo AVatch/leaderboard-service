@@ -14,4 +14,4 @@ class LeaderboardSerializer(serializers.ModelSerializer):
 
 class EntrySerializer(serializers.ModelSerializer):
     class Meta:
-        model = Entry        
+        model = Entry
